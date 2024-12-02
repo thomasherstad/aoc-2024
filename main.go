@@ -19,7 +19,7 @@ func main() {
 	//}
 	//fmt.Println("Similarity Score:", similarityScore)
 
-	safeReportsAmount, err := findSafeReportsDay2()
+	safeReportsAmount, err := findSafeReportsDay2Task1()
 	if err != nil {
 		log.Fatal(err)
 	}
