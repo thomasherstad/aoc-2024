@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -61,10 +60,46 @@ func findSafeReportsDay2Task1() (int, error) {
 		return 0, nil
 	}
 	totalSafeReports := 0
-	for i, report := range reports {
+	for _, report := range reports {
 		safe := isSafe(report)
-		fmt.Printf("Report %v: %v - %v\n", i, report, safe)
+		//fmt.Printf("Report %v: %v - %v\n", i, report, safe)
 		if safe {
+			totalSafeReports++
+		}
+	}
+
+	return totalSafeReports, err
+}
+
+func isSafeWithDampener(report []int) bool {
+
+	if isSafe(report) {
+		return true
+	}
+
+	// Brute forcing removing one "level" at a time
+	// Could use problemDampener as recursion level variable here and do recursion instead
+	for i := range report {
+		alteredReport := make([]int, len(report))
+		copy(alteredReport, report)
+		alteredReport = append(alteredReport[:i], alteredReport[i+1:]...)
+		if isSafe(alteredReport) {
+			return true
+		}
+	}
+	return false
+}
+
+// This gives the correct answer = 488
+func findSafeReportsDay2Task2() (int, error) {
+	reports, err := getInputListDay2()
+	if err != nil {
+		return 0, nil
+	}
+	totalSafeReports := 0
+	for _, report := range reports {
+		//fmt.Printf("Report %v: %v\n", i, report)
+		if isSafeWithDampener(report) {
 			totalSafeReports++
 		}
 	}

@@ -24,5 +24,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	safeReportsAmountDampener, err := findSafeReportsDay2Task2()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	fmt.Println("Safe reports:", safeReportsAmount)
+	fmt.Println("Safe reports with dampener: ", safeReportsAmountDampener)
 }
